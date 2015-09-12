@@ -21,7 +21,7 @@ function initMap() {
 
   //listUpcomingEvents();
   geocodeLocation("Stever House");
-  drawRoute();
+  //drawRoute();
   foodSearch(pyrmont);
 }
 
@@ -34,44 +34,35 @@ function callback(results, status) {
 }
 
 function createMarker(place) {
+  console.log(place);
   var placeLoc = place.geometry.location;
   var placeID = place.place_id;
-  var marker = new google.maps.Marker({
-    map: map,
-    position: placeLoc
-  });
-  var service = new google.maps.places.PlacesService(map)
-  service.getDetails({
-    placeId: placeID}, function(place, status) {
-      if (status === google.maps.places.PlacesServiceStatus.OK) {
-        if (place.type == 'food') {
-          var marker = new google.maps.Marker({
-          map: map,
-          position: place.geometry.location,
-          icon: 'http://www.rootscsa.org/wp-content/uploads/2014/06/Restaurant-Icon.png'
-          });
-        }
-        else {
-          var marker = new google.maps.Marker({
-          map: map,
-          position: place.geometry.location,
-          });
-        }
-        var infoContent = ("<h1>" + place.name + "</h1>" +
-                            "<p><b> Address: &nbsp; </b>" + place.formatted_address + "</p>" +
-                            "<p><b> Phone: &nbsp;&nbsp;&nbsp;&nbsp; </b>" + place.formatted_phone_number + "</p>" +
-                            "<p><b> Rating: &nbsp;&nbsp;&nbsp;&nbsp; </b>" + place.rating + "</p>" +
-                            "<p><b> Hours: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b>" + place.opening_hours.weekday_text[0] + "</p>" +
-                            "<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + place.opening_hours.weekday_text[1] + "</p>" +
-                            "<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + place.opening_hours.weekday_text[2] + "</p>" +
-                            "<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + place.opening_hours.weekday_text[3] + "</p>" +
-                            "<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + place.opening_hours.weekday_text[4] + "</p>" +
-                            "<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + place.opening_hours.weekday_text[5] + "</p>" +
-                            "<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + place.opening_hours.weekday_text[6] + "</p>")
-        google.maps.event.addListener(marker, 'click', function() {
-          infowindow.setContent(infoContent);
-          infowindow.open(map, this); 
+  if (place.types.indexOf("food") != -1) {
+    var marker = new google.maps.Marker({
+      map: map,
+      position: placeLoc,
+      // icon: image
       });
-    }
-  });
-}
+  }
+  else {
+    var marker = new google.maps.Marker({
+      map: map,
+      position: placeLoc,
+      });
+  }
+  var infoContent = ("<h1>" + place.name + "</h1>" +
+                      "<p><b> Address: &nbsp; </b>" + place.formatted_address + "</p>" +
+                      "<p><b> Phone: &nbsp;&nbsp;&nbsp;&nbsp; </b>" + place.formatted_phone_number + "</p>" +
+                      "<p><b> Rating: &nbsp;&nbsp;&nbsp;&nbsp; </b>" + place.rating + "</p>" +
+                      "<p><b> Hours: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b>" + place.opening_hours.weekday_text[0] + "</p>" +
+                      "<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + place.opening_hours.weekday_text[1] + "</p>" +
+                      "<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + place.opening_hours.weekday_text[2] + "</p>" +
+                      "<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + place.opening_hours.weekday_text[3] + "</p>" +
+                      "<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + place.opening_hours.weekday_text[4] + "</p>" +
+                      "<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + place.opening_hours.weekday_text[5] + "</p>" +
+                      "<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + place.opening_hours.weekday_text[6] + "</p>")
+  google.maps.event.addListener(marker, 'click', function() {
+      infowindow.setContent(infoContent);
+      infowindow.open(map, this); 
+      });
+  }
