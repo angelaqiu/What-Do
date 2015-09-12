@@ -18,6 +18,10 @@ function initMap() {
     radius: 500,
     types: ['store']
   }, callback);
+
+  listUpcomingEvents();
+  geocodeLocation();
+  drawRoute();
 }
 
 function callback(results, status) {
