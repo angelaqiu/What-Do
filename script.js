@@ -12,6 +12,21 @@ function initMap() {
 
   infowindow = new google.maps.InfoWindow();
 
+  // var service = new google.maps.places.PlacesService(map);
+  // service.nearbySearch({
+  //   location: pyrmont,
+  //   radius: 500,
+  //   types: ['store']
+  // }, callback);
+
+  //listUpcomingEvents();
+  // geocodeLocation("Stever House");
+// <<<<<<< HEAD
+//   //drawRoute();
+// =======
+//   // drawRoute();
+// >>>>>>> 32289d53738486a145c65fd3557fcaeef9fc75fb
+  // foodSearch(pyrmont);
 }
 
 function callback(results, status) {
@@ -30,6 +45,7 @@ function createMarker(place) {
     var marker = new google.maps.Marker({
       map: map,
       position: placeLoc,
+      // icon: image
       });
   }
   else {

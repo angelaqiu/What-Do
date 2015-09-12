@@ -230,8 +230,10 @@ Date.prototype.format = function (mask, utc) {
                              "location":event["location"]});
       }
     }
+    console.log(breaks);
     if (breaks.length != 0) {
-      for (breakTime in breaks) {
+      for (var i = 0; i < breaks.length; i++) {
+        breakTime = breaks[i];
         if (breakTime["start"] <= 12 && breakTime["end"] >= 12) {
           geocodeLocation(breakTime["location"]);
         } else if (breakTime["start"] <= 18 && breakTime["end"] >= 18) {
