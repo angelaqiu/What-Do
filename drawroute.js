@@ -10,14 +10,14 @@ function drawRoute() {
 
     var point0 = "Stever House";
     var point1 = "Carnegie Mellon University";
-    // var point2 = "1030 Morewood Avenue";
+    var point2 = "Carnegie Museum of Natural History";
     var point3 = "University of Pittsburgh";
     var point4 = "Duquesne University";
 
     // var point0 = geocodeLocation("Carnegie Mellon University");
     // console.log(point0);
 
-    var points = [point0, point1, point3, point4];
+    var points = [point0, point1, point2, point3, point4];
     // var points = [point0, point1, point3];
 
     // geocodeLocation(points);
