@@ -38,14 +38,24 @@ function callback(results, status) {
 }
 
 function createMarker(place) {
-  console.log(place);
   var placeLoc = place.geometry.location;
   var placeID = place.place_id;
   if (place.types.indexOf("food") != -1) {
+    var image = {
+      url: 'Restaurant-Icon.png',
+      size: new google.maps.Size(380,380),
+      origin: new google.maps.Point(0,0),
+      anchor: new google.maps.Point(0,0),
+      scaledSize: new google.maps.Size(25,25)
+    };
+    // var shape = {
+    //   coords: [1, 1, 1, 31, 19, 31, 19, 1],
+    //   type: 'poly'
+    // };
     var marker = new google.maps.Marker({
       map: map,
       position: placeLoc,
-      // icon: image
+      icon: image
       });
   }
   else {
@@ -65,8 +75,9 @@ function createMarker(place) {
                       "<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + place.opening_hours.weekday_text[4] + "</p>" +
                       "<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + place.opening_hours.weekday_text[5] + "</p>" +
                       "<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + place.opening_hours.weekday_text[6] + "</p>")
-  google.maps.event.addListener(marker, 'click', function() {
+  marker.addListener('click', function() {
       infowindow.setContent(infoContent);
-      infowindow.open(map, this); 
+      infowindow.setPosition(placeLoc);
+      infowindow.open(map); 
       });
   }

@@ -16,11 +16,12 @@ function foodCallback(results, status) {
             var service = new google.maps.places.PlacesService(map);
             service.getDetails({placeId: placeID}, function(place, status) {
                 if (status === google.maps.places.PlacesServiceStatus.OK) {
-                    var open = place.opening_hours.open_now;
-                    if (open) {
-                        console.log(place);
-                        createMarker(place);
+                    if (place.opening_hours != null) {
+                    	var open = place.opening_hours.open_now;
+                    	if (open) {
+                        	createMarker(place);
                     }
+                  }
                 }
             });
         }
