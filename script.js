@@ -19,7 +19,7 @@ function initMap() {
     types: ['store']
   }, callback);
 
-  // listUpcomingEvents();
+  listUpcomingEvents();
   geocodeLocation("Stever House");
   drawRoute();
 }
