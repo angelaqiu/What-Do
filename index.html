@@ -1,12 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <style type="text/css">
       html, body { height: 100%; margin: 0; padding: 0; }
-      #map { height: 100%; }
     </style>
+    <link rel="stylesheet" href="css/main.css">
   </head>
   <body>
+  <div id="main">
+    <h1>watdo</h1>
+<h2>by ayu & madwu & angqiu</h2>
+  <style type="text/css">
+  html, body, #map-canvas {width:100%; height: 100%; margin: 0; padding: 0;}
+</style>
+<div id="authorize-div">
+      <span>Authorize access to Google Calendar API</span>
+      <!--Button for the user to click to initiate auth sequence -->
+      <button id="authorize-button" onclick="handleAuthClick(event)">
+        Authorize
+      </button>
+    </div>
+  </div>
     <div id="map"></div>
     <script type="text/javascript" src='script.js'>
     </script>
@@ -20,13 +35,7 @@
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7uuCkh3tYDyMe0pkEeSLbxMnC7kegFcA&signed_in=true&libraries=places&callback=initMap" async defer></script>
     <script src="https://apis.google.com/js/client.js?onload=checkAuth" async defer></script>
-    <div id="authorize-div" style="display: none">
-      <span>Authorize access to Google Calendar API</span>
-      <!--Button for the user to click to initiate auth sequence -->
-      <button id="authorize-button" onclick="handleAuthClick(event)">
-        Authorize
-      </button>
-    </div>
+    
 
   </body>
 </html>

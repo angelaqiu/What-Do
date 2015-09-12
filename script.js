@@ -21,7 +21,7 @@ function initMap() {
 
   //listUpcomingEvents();
   geocodeLocation("Stever House");
-  drawRoute();
+  // drawRoute();
   foodSearch(pyrmont);
 }
 

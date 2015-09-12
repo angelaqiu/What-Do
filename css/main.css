@@ -2,14 +2,16 @@
     width: 15%;
     background-color: #A9EAF5;
     position: fixed;
-    right: 0px;
+    left: 0px;
     bottom: 0px;
     margin: auto;
     text-align: left;
     padding: 30px 60px;
     border: solid #fff;
-    border-width: 15px 0px 0px 15px;
-    z-index:3;
+    border-width: 15px 15px 0px 0px;
+    z-index:10;
     color:#227CB3;
-    font-family: 'Roboto';
+    font-family: 'Open Sans';
 }
+
+#map { height: 100%; }
