@@ -233,9 +233,9 @@ Date.prototype.format = function (mask, utc) {
     if (breaks.length != 0) {
       for (breakTime in breaks) {
         if (breakTime["start"] <= 12 && breakTime["end"] >= 12) {
-          foodSearch(breakTime["location"]);
+          geocodeLocation(breakTime["location"]);
         } else if (breakTime["start"] <= 18 && breakTime["end"] >= 18) {
-          foodSearch(breakTime["location"]);
+          geocodeLocation(breakTime["location"]);
         }
       }
     }

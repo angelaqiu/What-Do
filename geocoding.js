@@ -5,6 +5,7 @@ function geocodeLocation(place) {
 	geocoder.geocode({'address':address}, function(results, status) {
 		pos = results[0].geometry.location;
 		console.log(pos);
+		foodSearch(pos);
 		return pos;
 	})
 }
