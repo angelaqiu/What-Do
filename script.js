@@ -12,17 +12,20 @@ function initMap() {
 
   infowindow = new google.maps.InfoWindow();
 
-  // var service = new google.maps.places.PlacesService(map);
-  // service.nearbySearch({
-  //   location: pyrmont,
-  //   radius: 500,
-  //   types: ['store']
-  // }, callback);
+  var service = new google.maps.places.PlacesService(map);
+  service.nearbySearch({
+    location: pyrmont,
+    radius: 500,
+    types: ['store']
+  }, callback);
 
   //listUpcomingEvents();
   geocodeLocation("Stever House");
   // drawRoute();
+<<<<<<< HEAD
   foodSearch(pyrmont);
+=======
+>>>>>>> 9c84f8c7e3f5913ec9af90e4eab203383dee8a9a
 }
 
 function callback(results, status) {
@@ -44,19 +47,10 @@ function createMarker(place) {
   service.getDetails({
     placeId: placeID}, function(place, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        if (place.type == 'food') {
-          var marker = new google.maps.Marker({
-          map: map,
-          position: place.geometry.location,
-          icon: 'http://www.rootscsa.org/wp-content/uploads/2014/06/Restaurant-Icon.png'
-          });
-        }
-        else {
-          var marker = new google.maps.Marker({
+        var marker = new google.maps.Marker({
           map: map,
           position: place.geometry.location,
           });
-        }
         var infoContent = ("<h1>" + place.name + "</h1>" +
                             "<p><b> Address: &nbsp; </b>" + place.formatted_address + "</p>" +
                             "<p><b> Phone: &nbsp;&nbsp;&nbsp;&nbsp; </b>" + place.formatted_phone_number + "</p>" +
