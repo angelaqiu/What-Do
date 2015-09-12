@@ -20,7 +20,7 @@ function initMap() {
   }, callback);
 
   //listUpcomingEvents();
-  geocodeLocation();
+  geocodeLocation("Stever House");
   drawRoute();
 }
 
