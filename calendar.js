@@ -215,9 +215,15 @@ Date.prototype.format = function (mask, utc) {
     }
     console.log(response);
     drawRoute(response);
-    // breaks = [];
-    // for (event in response) {
-    //   if (event.hours == 12 || event)
+    // var breaks = [];
+    // for (var i = 0; i < response.length; i++) {
+    //   var event = response[i];
+    //   if (i == 0 && event["hours"] != 0) {
+    //     breaks.push({"start":0,"end":event["hours"]});
+    //   } else if (i == response.length - 1 && event["hours2"] != 24) {
+    //     breaks.push({"start":event["hours2"],"end":24});
+    //   } else if (i != response.length - 1 && event["hours2"] != )
+    //   }
     // }
 
     }); });
