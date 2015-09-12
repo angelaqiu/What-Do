@@ -46,6 +46,14 @@
         return false;
       }
 
+      /**
+       * Load Google Calendar client library. List upcoming events
+       * once client library is loaded.
+       */
+      function loadCalendarApi() {
+        gapi.client.load('calendar', 'v3', listUpcomingEvents);
+      }
+
 var dateFormat = function () {
   var token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g,
     timezone = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,
@@ -157,27 +165,6 @@ Date.prototype.format = function (mask, utc) {
   return dateFormat(this, mask, utc);
 };
       /**
-       * Load Google Calendar client library. List upcoming events
-       * once client library is loaded.
-       */
-      function loadCalendarApi() {
-        // var tomorrow = new Date();
-        // tomorrow.setTime(tomorrow.getTime() + (1000*3600*24));
-        // var today = new Date();
-
-        gapi.client.load('calendar','v3',listUpcomingEvents);
-        //   var request = gapi.client.calendar.events.list({
-        //     'calendarId': 'primary',
-        //     'timeMin': (dateFormat(today, "isoDate")),
-        //     'timeMax': (dateFormat(tomorrow, "isoDate")),
-        //     'showDeleted': false,
-        //     'singleEvents': true,
-        //     'maxResults': 10,
-        //     'orderBy': 'startTime'
-        //   });
-        // });
-      }
-      /**
        * Print the summary and start datetime/date of the next ten events in
        * the authorized user's calendar. If no events are found an
        * appropriate message is printed.
@@ -187,15 +174,15 @@ Date.prototype.format = function (mask, utc) {
         var tomorrow = new Date();
         tomorrow.setTime(tomorrow.getTime() + (1000*3600*24));
         var today = new Date();
-        // gapi.client.load('calendar','v3',function(){
+        gapi.client.load('calendar','v3',function(){
           var request = gapi.client.calendar.events.list({
             'calendarId': 'primary',
             'showDeleted': false,
             'singleEvents': true,
             'maxResults': 10,
             'orderBy': 'startTime',
-            'timeMin': (dateFormat(today, "isoDate")),
-            'timeMax': (dateFormat(tomorrow, "isoDate"))
+            'timeMin': (today.toISOString()),
+            'timeMax': (tomorrow.toISOString())
           });
         request.execute(function(resp) {
           var events = resp.items;
@@ -207,16 +194,16 @@ Date.prototype.format = function (mask, utc) {
               var when = event.start.date;
               var when2 = event.end.date;
               //find today
-        respEvent["name"] = event.name;
+        respEvent["name"] = event.summary;
         if (event.start.dateTime) {
-          when = event.end.dateTime;
-          respEvent["hours"] = when.getHours();
-          respEvent["minutes"] = when.getMinutes();
+          when = event.start.dateTime;
+          respEvent["hours"] = parseInt(when.slice(11,13));
+          respEvent["minutes"] = parseInt(when.slice(14,16));
         }
         if (event.end.dateTime) {
           when2 = event.end.dateTime;
-          respEvent["hours2"] = when2.getHours();
-          respEvent["minutes2"] = when2.getMinutes();
+          respEvent["hours2"] = parseInt(when2.slice(11,13));
+          respEvent["minutes2"] = parseInt(when2.slice(14,16));
         }
         if (event.location) {
           respEvent["location"] = event.location;
@@ -229,5 +216,5 @@ Date.prototype.format = function (mask, utc) {
     console.log(response);
     return response;
 
-    });
+    }); });
   }
