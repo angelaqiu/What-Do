@@ -215,16 +215,30 @@ Date.prototype.format = function (mask, utc) {
     }
     console.log(response);
     drawRoute(response);
-    // var breaks = [];
-    // for (var i = 0; i < response.length; i++) {
-    //   var event = response[i];
-    //   if (i == 0 && event["hours"] != 0) {
-    //     breaks.push({"start":0,"end":event["hours"]});
-    //   } else if (i == response.length - 1 && event["hours2"] != 24) {
-    //     breaks.push({"start":event["hours2"],"end":24});
-    //   } else if (i != response.length - 1 && event["hours2"] != )
-    //   }
-    // }
+    var breaks = [];
+    for (var i = 0; i < response.length; i++) {
+      var event = response[i];
+      if (i == 0 && event["hours"] != 0) {
+        breaks.push({"start":0,"end":event["hours"],
+                             "location":event["location"]});
+      } else if (i == response.length - 1 && event["hours2"] != 24) {
+        breaks.push({"start":event["hours2"],"end":24,
+                            "location":event["location"]});
+      } else if (i != response.length - 1 && 
+                   event["hours2"] != response[i+1]["hours"]) {
+        breaks.push({"start":event["hours2"],"end":response[i+1]["hours"],
+                             "location":event["location"]});
+      }
+    }
+    if (breaks.length != 0) {
+      for (breakTime in breaks) {
+        if (breakTime["start"] <= 12 && breakTime["end"] >= 12) {
+          foodSearch(breakTime["location"]);
+        } else if (breakTime["start"] <= 18 && breakTime["end"] >= 18) {
+          foodSearch(breakTime["location"]);
+        }
+      }
+    }
 
     }); });
   }
