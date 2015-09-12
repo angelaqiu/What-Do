@@ -22,7 +22,7 @@ function foodCallback(results, status) {
       					createMarker(place);
       				}
       			}
-      		})
+      		});
     	}
 	}
 }
