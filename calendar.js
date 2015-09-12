@@ -214,7 +214,7 @@ Date.prototype.format = function (mask, utc) {
       console.log("No events found!!!");
     }
     console.log(response);
-    return response;
+    drawRoute(response);
 
     }); });
   }
