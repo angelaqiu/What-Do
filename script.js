@@ -35,7 +35,6 @@ function callback(results, status) {
 function createMarker(place) {
   var placeLoc = place.geometry.location;
   var placeID = place.place_id;
-  console.log(placeID);
   var marker = new google.maps.Marker({
     map: map,
     position: placeLoc
@@ -44,7 +43,6 @@ function createMarker(place) {
   service.getDetails({
     placeId: placeID}, function(place, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        console.log(place);
         var marker = new google.maps.Marker({
           map: map,
           position: place.geometry.location,
