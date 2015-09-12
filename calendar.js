@@ -72,31 +72,47 @@ function listUpcomingEvents() {
   request.execute(function(resp) {
     var events = resp.items;
     appendPre('Upcoming events:');
-
+    var response = [];
     if (events.length > 0) {
       for (i = 0; i < events.length; i++) {
+        var respEvent = {};
         var event = events[i];
-        var when = event.start.dateTime;
-        if (!when) {
-          when = event.start.date;
+        var when = event.start.date;
+        var when2 = event.end.date;
+        //find today
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+        if(dd<10) {
+            dd='0'+dd;
+        } 
+
+        if(mm<10) {
+            mm='0'+mm;
+        } 
+        respEvent["name"] = event.name;
+        if (when.getMonth() == mm && when.getDate() == dd && 
+            when2.getMonth() == mm && when2.getDate() == dd) {
+          if (event.start.dateTime) {
+            when = event.end.dateTime;
+            respEvent["hours"] = when.getHours();
+            respEvent["minutes"] = when.getMinutes();
+          }
+          if (event.end.dateTime) {
+            when2 = event.end.dateTime;
+            respEvent["hours2"] = when2.getHours();
+            respEvent["minutes2"] = when2.getMinutes();
+          }
         }
-        appendPre(event.summary + ' (' + when + ')')
+        if (event.location) {
+          respEvent["location"] = event.location;
+        }
+      response.push(respEvent);
       }
     } else {
-      appendPre('No upcoming events found.');
+      console.log("No events found!!!");
     }
-
+    console.log(response);
   });
-}
-
-/**
- * Append a pre element to the body containing the given message
- * as its text node.
- *
- * @param {string} message Text to be placed in pre element.
- */
-function appendPre(message) {
-  var pre = document.getElementById('output');
-  var textContent = document.createTextNode(message + '\n');
-  pre.appendChild(textContent);
 }
