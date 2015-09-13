@@ -179,7 +179,7 @@ Date.prototype.format = function (mask, utc) {
             'calendarId': 'primary',
             'showDeleted': false,
             'singleEvents': true,
-            'maxResults': 10,
+            'maxResults': 20,
             'orderBy': 'startTime',
             'timeMin': (today.toISOString()),
             'timeMax': (tomorrow.toISOString())
@@ -187,6 +187,7 @@ Date.prototype.format = function (mask, utc) {
         request.execute(function(resp) {
           var events = resp.items;
           var response = [];
+          console.log(events);
           if (events && events.length > 0) {
             for (i = 0; i < events.length; i++) {
               var respEvent = {};
@@ -235,9 +236,11 @@ Date.prototype.format = function (mask, utc) {
       for (var i = 0; i < breaks.length; i++) {
         breakTime = breaks[i];
         if (breakTime["start"] <= 12 && breakTime["end"] >= 12) {
-          geocodeLocation(breakTime["location"]);
+          geocodeLocation(breakTime["location"],"lunch");
         } else if (breakTime["start"] <= 18 && breakTime["end"] >= 18) {
-          geocodeLocation(breakTime["location"]);
+          geocodeLocation(breakTime["location"],"dinner");
+        } else {
+          geocodeLocation(breakTime["location"],"breaktime");
         }
       }
     }
