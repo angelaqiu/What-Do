@@ -1,1 +1,1 @@
-MHacks 6
+MHacks 6 project
